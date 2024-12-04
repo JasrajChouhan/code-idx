@@ -1,7 +1,7 @@
-import { Avatar } from '../atoms/avatar';
 import { Logo } from '../atoms/logo';
 import { MenuIcon } from '../atoms/menu-icon';
 import { NavbarLinks } from '../atoms/navbar-links';
+import { AvatarModal } from '../containers/avatar-modal';
 
 export const Navbar: React.FC = () => {
   return (
@@ -9,7 +9,7 @@ export const Navbar: React.FC = () => {
       <div className="container mx-auto px-4 flex justify-between items-center py-2">
         <Logo />
         <NavbarLinks />
-        <Avatar />
+        <AvatarModal />
         <MenuIcon />
       </div>
     </nav>
