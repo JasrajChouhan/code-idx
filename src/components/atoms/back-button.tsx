@@ -3,16 +3,16 @@ import { Button } from 'antd';
 
 // Footer Component for Back Button
 export const BackButton = ({
-  backButtonHref,
+  backButtonOnSwitch,
   backButtonLabel,
 }: {
-  backButtonHref: string;
+  backButtonOnSwitch: () => void;
   backButtonLabel: string;
 }) => {
   return (
     <Button
       type="link"
-      href={backButtonHref}
+      onClick={backButtonOnSwitch}
       icon={<ArrowLeftOutlined />}
       className="text-blue-500"
     >

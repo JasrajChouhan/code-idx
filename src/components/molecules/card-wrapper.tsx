@@ -9,7 +9,7 @@ interface CardWrapperProps {
   children: React.ReactNode;
   showSocial?: boolean;
   headerLabel: string;
-  backButtonHref: string;
+  backButtonOnSwitch: () => void;
   backButtonLabel: string;
 }
 
@@ -18,7 +18,7 @@ const CardWrapper = ({
   children,
   showSocial,
   headerLabel,
-  backButtonHref,
+  backButtonOnSwitch,
   backButtonLabel,
 }: CardWrapperProps) => {
   return (
@@ -36,7 +36,7 @@ const CardWrapper = ({
       <div className="mt-4 ml-[-15px]">
         <BackButton
           backButtonLabel={backButtonLabel}
-          backButtonHref={backButtonHref}
+          backButtonOnSwitch={backButtonOnSwitch}
         />
       </div>
     </Card>

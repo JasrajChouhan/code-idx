@@ -6,7 +6,7 @@ import CardWrapper from '../molecules/card-wrapper';
 import { RegisterSchema } from '../../schemas';
 import { useSignup } from '../../hooks/api/mutaion/useSignup';
 
-export const RegisterForm = () => {
+export const RegisterForm = ({ onSwitch }: { onSwitch: () => void }) => {
   type LoginType = z.infer<typeof RegisterSchema>;
   const [loading, setLoading] = React.useState<boolean>(false);
   const { mutateAsync: submitData, data } = useSignup();
@@ -34,7 +34,7 @@ export const RegisterForm = () => {
   return (
     <CardWrapper
       showSocial={true}
-      backButtonHref="/auth/login"
+      backButtonOnSwitch={onSwitch}
       backButtonLabel="Already have an account?"
       headerLabel="Sign Up"
     >

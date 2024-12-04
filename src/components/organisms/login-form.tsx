@@ -1,11 +1,12 @@
+import React from 'react';
 import { Button, Form, Input, notification } from 'antd';
 import { z } from 'zod';
+
 import { useLogin } from '../../hooks/api/mutaion/useLogin';
 import { LoginSchema } from '../../schemas';
 import CardWrapper from '../molecules/card-wrapper';
-import React from 'react';
 
-export const LoginForm = () => {
+export const LoginForm = ({ onSwitch }: { onSwitch: () => void }) => {
   type LoginType = z.infer<typeof LoginSchema>;
   const [loading, setLoading] = React.useState<boolean>(false);
   const { mutateAsync: submitData, data } = useLogin();
@@ -33,7 +34,7 @@ export const LoginForm = () => {
   return (
     <CardWrapper
       showSocial={true}
-      backButtonHref="/auth/register"
+      backButtonOnSwitch={onSwitch}
       backButtonLabel="Don't have an account?"
       headerLabel="Sign In"
     >
