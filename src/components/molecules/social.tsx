@@ -3,6 +3,7 @@ import { FaGithub } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 
 import { authenticationByGoogle } from '../../api/authenticationByGoogle';
+import { authenticationByGithub } from '../../api/authenticationByGithub';
 
 export const Social = () => {
   const onClick = async (provider: 'google' | 'github') => {
@@ -15,10 +16,12 @@ export const Social = () => {
         });
         console.log('Google User Data:', response.data.user);
       } else {
-        notification.info({
-          message: 'GitHub Authentication',
-          description: 'GitHub authentication is not yet implemented.',
+        const response = await authenticationByGithub();
+        notification.success({
+          message: 'Authentication Successful',
+          description: `Welcome, ${response?.data?.user?.username || 'User'}!`,
         });
+        console.log('Github User Data:', response.data);
       }
     } catch (error: any) {
       console.error('Authentication Error:', error);
