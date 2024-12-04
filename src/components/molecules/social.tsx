@@ -1,10 +1,32 @@
-import { Button, Flex } from 'antd';
+import { Button, Flex, notification } from 'antd';
 import { FaGithub } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 
+import { authenticationByGoogle } from '../../api/authenticationByGoogle';
+
 export const Social = () => {
-  const onClick = (provider: 'google' | 'github') => {
-    console.log('hello');
+  const onClick = async (provider: 'google' | 'github') => {
+    try {
+      if (provider === 'google') {
+        const response = await authenticationByGoogle();
+        notification.success({
+          message: 'Authentication Successful',
+          description: `Welcome, ${response?.data?.user?.username || 'User'}!`,
+        });
+        console.log('Google User Data:', response.data.user);
+      } else {
+        notification.info({
+          message: 'GitHub Authentication',
+          description: 'GitHub authentication is not yet implemented.',
+        });
+      }
+    } catch (error: any) {
+      console.error('Authentication Error:', error);
+      notification.error({
+        message: 'Authentication Failed',
+        description: error.message || 'Something went wrong. Please try again.',
+      });
+    }
   };
   return (
     <Flex justify="center" align="center" gap={10}>
