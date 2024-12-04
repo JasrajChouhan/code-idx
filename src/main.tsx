@@ -1,7 +1,9 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import './index.css';
+
 import { App } from './App.tsx';
+import './index.css';
+import { QueryProvider } from './providers/QueryClientProvider.tsx';
 
 const root = document.getElementById('root');
 if (!root) {
@@ -10,6 +12,8 @@ if (!root) {
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <QueryProvider>
+      <App />
+    </QueryProvider>
   </StrictMode>,
 );
