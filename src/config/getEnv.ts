@@ -3,6 +3,13 @@ import { z } from 'zod';
 export const environmentSchema = z.object({
   VITE_NODE_ENV: z.enum(['production', 'development']),
   VITE_BACKEND_URL: z.string().url(),
+  VITE_API_KEY: z.string().readonly(),
+  VITE_AUTH_DOMAIN: z.string().readonly(),
+  VITE_PROJECT_ID: z.string().readonly(),
+  VITE_STORATE_BUCKET: z.string().readonly(),
+  VITE_MESSAGING_SENDER_ID: z.string().readonly(),
+  VITE_APP_ID: z.string().readonly(),
+  VITE_MEASUREMENT_ID: z.string().readonly(),
 });
 
 export type Environment = z.infer<typeof environmentSchema>;
