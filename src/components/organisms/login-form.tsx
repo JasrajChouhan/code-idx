@@ -1,10 +1,35 @@
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, notification } from 'antd';
+import { z } from 'zod';
+import { useLogin } from '../../hooks/api/mutaion/useLogin';
+import { LoginSchema } from '../../schemas';
 import CardWrapper from '../molecules/card-wrapper';
+import React from 'react';
 
 export const LoginForm = () => {
-  const handleSignIn = (values: any) => {
-    console.log('Sign Up Data:', values);
+  type LoginType = z.infer<typeof LoginSchema>;
+  const [loading, setLoading] = React.useState<boolean>(false);
+  const { mutateAsync: submitData, data } = useLogin();
+
+  const handleSignIn = async (userLoginData: LoginType) => {
+    setLoading(true);
+    try {
+      await submitData(userLoginData);
+      notification.success({
+        message: 'Login Successful',
+        description: 'You have successfully logged in!',
+      });
+      console.log(data.data);
+    } catch (error: any) {
+      notification.error({
+        message: 'Login Failed',
+        description:
+          error?.message || 'Something went wrong. Please try again.',
+      });
+    } finally {
+      setLoading(false);
+    }
   };
+
   return (
     <CardWrapper
       showSocial={true}
@@ -26,13 +51,19 @@ export const LoginForm = () => {
           rules={[{ required: true, message: 'Please input your password!' }]}
         >
           <Input.Password placeholder="Enter your password" />
-
-          <Button type='link' href='/auth/forget/password' className='ml-[-15px]'>
-            Forget password</Button>
         </Form.Item>
 
+        <div className="flex justify-end mt-[-25px] mr-[-15px] mb-4">
+          <Button
+            type="link"
+            href="/auth/forgot-password"
+            className="text-blue-500"
+          >
+            Forgot Password?
+          </Button>
+        </div>
 
-        <Button type="primary" htmlType="submit" block>
+        <Button type="primary" htmlType="submit" block loading={loading}>
           Sign In
         </Button>
       </Form>
