@@ -1,6 +1,7 @@
 import React from 'react';
 import { z } from 'zod';
 import { Button, Form, Input, notification } from 'antd';
+import ErrorBoundary from 'antd/es/alert/ErrorBoundary';
 
 import CardWrapper from '../molecules/card-wrapper';
 import { RegisterSchema } from '../../schemas';
@@ -19,12 +20,14 @@ export const RegisterForm = ({ onSwitch }: { onSwitch: () => void }) => {
         message: 'Registration Successful',
         description: 'You have successfully Sign up!',
       });
+      onSwitch();
       console.log(data);
     } catch (error: any) {
+      const errorData = error?.props?.response?.data;
       notification.error({
         message: 'Registration Failed',
         description:
-          error?.message || 'Something went wrong. Please try again.',
+          errorData?.message || 'Something went wrong. Please try again.',
       });
     } finally {
       setLoading(false);

@@ -21,10 +21,11 @@ export const LoginForm = ({ onSwitch }: { onSwitch: () => void }) => {
       });
       console.log(data.data);
     } catch (error: any) {
+      const errorData = error?.props?.response?.data;
       notification.error({
         message: 'Login Failed',
         description:
-          error?.message || 'Something went wrong. Please try again.',
+          errorData?.message || 'Something went wrong. Please try again.',
       });
     } finally {
       setLoading(false);
