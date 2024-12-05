@@ -19,9 +19,11 @@ export const LoginForm = ({ onSwitch }: { onSwitch: () => void }) => {
         message: 'Login Successful',
         description: 'You have successfully logged in!',
       });
-      console.log(data.data);
+      console.log(data?.data);
     } catch (error: any) {
       const errorData = error?.props?.response?.data;
+      console.log(error);
+
       notification.error({
         message: 'Login Failed',
         description:
