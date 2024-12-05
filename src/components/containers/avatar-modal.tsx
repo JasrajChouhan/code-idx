@@ -30,6 +30,7 @@ export const AvatarModal: React.FC = () => {
             {currentForm === 'signin' && (
               <LoginForm
                 onSwitch={() => setCurrentForm('signup')} // Switch to Sign Up
+                onClose={() => setIsOpen(false)}
               />
             )}
           </div>
@@ -43,6 +44,7 @@ export const AvatarModal: React.FC = () => {
             {currentForm === 'signup' && (
               <RegisterForm
                 onSwitch={() => setCurrentForm('signin')} // Switch to Sign In
+                onClose={() => setIsOpen(false)}
               />
             )}
           </div>

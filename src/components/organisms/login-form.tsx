@@ -5,10 +5,17 @@ import { z } from 'zod';
 import { useLogin } from '../../hooks/api/mutaion/useLogin';
 import { LoginSchema } from '../../schemas';
 import CardWrapper from '../molecules/card-wrapper';
+import { useNavigate } from 'react-router';
 
-export const LoginForm = ({ onSwitch }: { onSwitch: () => void }) => {
+export interface AuthFormProps {
+  onSwitch: () => void;
+  onClose: () => void;
+}
+
+export const LoginForm = ({ onSwitch, onClose }: AuthFormProps) => {
   type LoginType = z.infer<typeof LoginSchema>;
   const [loading, setLoading] = React.useState<boolean>(false);
+  const navigate = useNavigate();
   const { mutateAsync: submitData, data } = useLogin();
 
   const handleSignIn = async (userLoginData: LoginType) => {
@@ -19,6 +26,11 @@ export const LoginForm = ({ onSwitch }: { onSwitch: () => void }) => {
         message: 'Login Successful',
         description: 'You have successfully logged in!',
       });
+
+      // navigate to /dashboard page
+      navigate('/dashboard');
+      onClose();
+
       console.log(data?.data);
     } catch (error: any) {
       const errorData = error?.props?.response?.data;

@@ -1,13 +1,14 @@
+import { Button, Form, Input, notification } from 'antd';
 import React from 'react';
 import { z } from 'zod';
-import { Button, Form, Input, notification } from 'antd';
-import ErrorBoundary from 'antd/es/alert/ErrorBoundary';
 
-import CardWrapper from '../molecules/card-wrapper';
-import { RegisterSchema } from '../../schemas';
 import { useSignup } from '../../hooks/api/mutaion/useSignup';
+import { RegisterSchema } from '../../schemas';
+import CardWrapper from '../molecules/card-wrapper';
 
-export const RegisterForm = ({ onSwitch }: { onSwitch: () => void }) => {
+import { AuthFormProps } from './login-form';
+
+export const RegisterForm = ({ onSwitch, onClose }: AuthFormProps) => {
   type LoginType = z.infer<typeof RegisterSchema>;
   const [loading, setLoading] = React.useState<boolean>(false);
   const { mutateAsync: submitData, data } = useSignup();
