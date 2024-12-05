@@ -1,12 +1,10 @@
-import { Navbar } from './components/molecules/navbar';
-import { LoginForm } from './components/organisms/login-form';
+import { RouterProvider } from 'react-router';
+import { router } from './router';
 
 export const App: React.FC = () => {
   return (
-    <div>
-      <Navbar />
-      <hr />
-      <LoginForm />
-    </div>
+    <>
+      <RouterProvider router={router} />;
+    </>
   );
 };

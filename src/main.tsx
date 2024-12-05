@@ -1,10 +1,9 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { RouterProvider } from 'react-router';
 
+import { App } from './App.tsx';
 import './index.css';
 import { QueryProvider } from './providers/QueryClientProvider.tsx';
-import { router } from './router/index.tsx';
 
 const root = document.getElementById('root');
 if (!root) {
@@ -14,8 +13,8 @@ if (!root) {
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryProvider>
-      <RouterProvider router={router} />
-      {/* <App /> */}
+      {/* <RouterProvider router={router} /> */}
+      <App />
     </QueryProvider>
   </StrictMode>,
 );
