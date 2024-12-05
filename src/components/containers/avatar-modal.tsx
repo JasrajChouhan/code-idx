@@ -3,11 +3,17 @@ import { LoginForm } from '../organisms/login-form';
 import { ModelDialog } from '../molecules/model-dialog';
 import { Avatar } from '../atoms/avatar';
 import { RegisterForm } from '../organisms/register-form';
+import { useAuthStore } from '../../store';
+import { LogoutButton } from '../molecules/logout-button';
 
 export const AvatarModal: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentForm, setCurrentForm] = useState<'signin' | 'signup'>('signin');
 
+  const { user } = useAuthStore();
+  if (user) {
+    return <LogoutButton />;
+  }
   return (
     <>
       <Avatar onClick={() => setIsOpen(true)} />
