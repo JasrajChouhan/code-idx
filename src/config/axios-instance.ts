@@ -25,7 +25,11 @@ axiosInstance.interceptors.response.use(
       try {
         const refreshResponse = await axiosInstance.post(
           '/api/v1/refresh/access-token',
+          {},
+          { withCredentials: true },
         );
+
+        console.log(refreshResponse);
 
         const newAccessToken = refreshResponse.data?.accessToken;
         if (newAccessToken) {
@@ -43,6 +47,7 @@ axiosInstance.interceptors.response.use(
         // Logout the user if token refresh fails
         const { logout } = useAuthStore.getState();
         logout();
+        window.location.href = '/';
       }
     }
     return Promise.reject(error);
