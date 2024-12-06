@@ -6,6 +6,8 @@ import { Contact } from '../pages/contact';
 import { Dashboard } from '../pages/dashboard';
 import { Navbar } from '../components/molecules/navbar';
 import { ProtectedRoute } from '../protected-router';
+import Recent from '../pages/recent';
+import Settings from '../pages/settings';
 
 // Define the router
 export const router = createBrowserRouter([
@@ -24,6 +26,10 @@ export const router = createBrowserRouter([
             <Dashboard />
           </ProtectedRoute>
         ),
+        children: [
+          { path: 'recent', element: <Recent /> },
+          { path: 'settings', element: <Settings /> },
+        ],
       },
     ],
   },
