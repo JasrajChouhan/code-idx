@@ -1,5 +1,5 @@
 import { Layout } from 'antd';
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { DashboardHeader } from '../molecules/dashboard-header';
 import { Sidebar } from '../molecules/sidebar';
 
@@ -9,9 +9,10 @@ type DashboardLayoutProps = {
   children: React.ReactNode;
 };
 
-export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
-  children,
-}) => {
+export const DashboardLayout = forwardRef<
+  HTMLInputElement,
+  DashboardLayoutProps
+>(({ children }, ref) => {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider
@@ -25,7 +26,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
       </Sider>
       <Layout>
         <Header className="bg-white px-2 items-center">
-          <DashboardHeader />
+          <DashboardHeader ref={ref} />
         </Header>
         <Content
           style={{ margin: '16px', padding: '16px', border: 'solid 1px' }}
@@ -35,4 +36,4 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
       </Layout>
     </Layout>
   );
-};
+});
