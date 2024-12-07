@@ -1,4 +1,5 @@
 import { Card, Flex } from 'antd';
+import { ImBackward } from 'react-icons/im';
 import { RxCrossCircled } from 'react-icons/rx';
 
 export interface ModelDialogProps {
@@ -8,6 +9,8 @@ export interface ModelDialogProps {
   children: React.ReactNode;
   width?: number | string;
   height?: number | string;
+  isBackArrow?: boolean;
+  onBack?: () => void;
 }
 
 export const ModelDialog: React.FC<ModelDialogProps> = ({
@@ -17,6 +20,8 @@ export const ModelDialog: React.FC<ModelDialogProps> = ({
   children,
   width = '400px',
   height = 'auto',
+  isBackArrow = false,
+  onBack,
 }) => {
   return (
     <div
@@ -35,11 +40,23 @@ export const ModelDialog: React.FC<ModelDialogProps> = ({
           }}
           className="shadow-lg rounded-lg relative bg-white"
         >
-          {isCrossIcon && (
-            <Flex justify="end" className="top-2 right-2 cursor-pointer mb-2">
-              <RxCrossCircled size={30} onClick={onClose} />
-            </Flex>
-          )}
+          <Flex
+            justify={isBackArrow && isCrossIcon ? 'space-between' : 'flex-end'}
+            align="center"
+            className="relative"
+          >
+            {isBackArrow && (
+              <Flex className="cursor-pointer mb-2" onClick={onBack}>
+                <ImBackward size={30} />
+              </Flex>
+            )}
+
+            {isCrossIcon && (
+              <Flex className="cursor-pointer mb-2" onClick={onClose}>
+                <RxCrossCircled size={30} />
+              </Flex>
+            )}
+          </Flex>
           {/* Modal Content */}
           <div>{children}</div>
         </Card>
