@@ -1,7 +1,8 @@
-import React from 'react';
 import { Button, notification } from 'antd';
+import React from 'react';
 
 import { useLogout } from '../../hooks/api/mutaion/useLogout';
+import { useAuthStore } from '../../store';
 
 export const LogoutButton = () => {
   const [loading, setLoading] = React.useState<boolean>(false);
@@ -10,6 +11,11 @@ export const LogoutButton = () => {
   const handleLogout = async () => {
     setLoading(true);
     try {
+      const refreshTokenValid = document.cookie.includes('refreshToken');
+      console.log(refreshTokenValid);
+      if (!refreshTokenValid) {
+        useAuthStore.getState().logout();
+      }
       await logout();
       notification.success({
         message: 'Logout Successful',
