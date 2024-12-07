@@ -1,7 +1,13 @@
 import demoProjects from '../../data/demo-projects';
 import { DefaultProject } from './default-projects';
 
-export const SearchProjectLayout = () => {
+export interface SearchProjectLayoutProps {
+  onProjectClick: () => void;
+}
+
+export const SearchProjectLayout = ({
+  onProjectClick,
+}: SearchProjectLayoutProps) => {
   return (
     <>
       <div>
@@ -17,6 +23,7 @@ export const SearchProjectLayout = () => {
             technologyIcon={project.technologyIcon}
             technologyName={project.technologyName}
             runPlace={project.runPlace as 'browser' | 'server'}
+            onClick={onProjectClick}
           />
         ))}
       </div>
