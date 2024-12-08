@@ -1,7 +1,7 @@
-import { Layout, Button, Grid } from 'antd';
+import React, { useState } from 'react';
+import { Button, Grid, Layout } from 'antd';
 import { Content, Footer, Header } from 'antd/es/layout/layout';
 import Sider from 'antd/es/layout/Sider';
-import React, { useState } from 'react';
 import { TerminalComponent } from '../components/atoms/terminal';
 
 // Styles for layout sections
@@ -46,7 +46,7 @@ const layoutStyle: React.CSSProperties = {
 const Playground = () => {
   const { useBreakpoint } = Grid;
   const screens = useBreakpoint();
-  const [view, setView] = useState<'sidebar' | 'code' | 'terminal'>('code');
+  const [view, setView] = useState<'sidebar' | 'code' | 'browser'>('code');
 
   const renderInlineButtons = () => (
     <div
@@ -63,8 +63,8 @@ const Playground = () => {
       <Button type="primary" onClick={() => setView('code')}>
         Code Editor
       </Button>
-      <Button type="primary" onClick={() => setView('terminal')}>
-        Terminal
+      <Button type="primary" onClick={() => setView('browser')}>
+        Browser
       </Button>
     </div>
   );
@@ -94,13 +94,7 @@ const Playground = () => {
         </Content>
       </Layout>
       <Footer style={footerStyle}>
-        {screens.md ? (
-          <TerminalComponent />
-        ) : view === 'terminal' ? (
-          <>
-            <TerminalComponent />
-          </>
-        ) : null}
+        <TerminalComponent />
       </Footer>
     </Layout>
   );
