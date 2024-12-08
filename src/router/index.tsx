@@ -8,6 +8,7 @@ import { Navbar } from '../components/molecules/navbar';
 import { ProtectedRoute } from '../protected-router';
 import Recent from '../pages/recent';
 import Settings from '../pages/settings';
+import Playground from '../pages/playground';
 
 // Define the router
 export const router = createBrowserRouter([
@@ -30,6 +31,14 @@ export const router = createBrowserRouter([
           { path: 'recent', element: <Recent /> },
           { path: 'settings', element: <Settings /> },
         ],
+      },
+      {
+        path: '/playground',
+        element: (
+          <ProtectedRoute>
+            <Playground />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
