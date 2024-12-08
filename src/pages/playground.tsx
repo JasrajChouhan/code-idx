@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Button, Grid, Layout } from 'antd';
 import { Content, Footer, Header } from 'antd/es/layout/layout';
 import Sider from 'antd/es/layout/Sider';
-import { TerminalComponent } from '../components/atoms/terminal';
+import { TerminalComponent } from '../components/molecules/terminal';
+import { EditorComponent } from '../components/molecules/editor/editor';
 
 // Styles for layout sections
 const headerStyle: React.CSSProperties = {
@@ -87,7 +88,9 @@ const Playground = () => {
         )}
         <Content style={contentStyle}>
           {screens.md || view === 'code' ? (
-            <div>Code Editor</div>
+            <div>
+              <EditorComponent />
+            </div>
           ) : (
             <div>browser </div>
           )}
