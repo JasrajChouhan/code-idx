@@ -16,3 +16,11 @@ export const RegisterSchema = z.object({
     message: 'Name must have atleat have 3 characters.',
   }),
 });
+
+export const createProjectSchema = z.object({
+  projectName: z.string(),
+  projectTechStack: z.string(),
+  description: z
+    .string()
+    .max(300, 'Project descreption can not exceed by 300 characters.'),
+});
