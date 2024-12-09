@@ -27,10 +27,11 @@ export const AvatarModal: React.FC = () => {
           width="500px"
         >
           <div
-            className={`transition-all duration-300 transform ${currentForm === 'signin'
+            className={`transition-all duration-300 transform ${
+              currentForm === 'signin'
                 ? 'opacity-100 translate-x-0'
                 : 'opacity-0 translate-x-[-100%]'
-              }`}
+            }`}
           >
             {currentForm === 'signin' && (
               <LoginForm
@@ -40,10 +41,11 @@ export const AvatarModal: React.FC = () => {
             )}
           </div>
           <div
-            className={`transition-all duration-300 transform ${currentForm === 'signup'
+            className={`transition-all duration-300 transform ${
+              currentForm === 'signup'
                 ? 'opacity-100 translate-x-0'
                 : 'opacity-0 translate-x-[100%]'
-              }`}
+            }`}
           >
             {currentForm === 'signup' && (
               <RegisterForm
