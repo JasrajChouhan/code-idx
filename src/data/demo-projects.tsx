@@ -2,25 +2,25 @@ import { SiReact, SiNodedotjs, SiPython, SiRust } from 'react-icons/si';
 
 export const demoProjects = [
   {
-    technologyName: 'React',
+    technologyName: 'reactjs',
     technologyIcon: <SiReact />,
     totalFork: 42,
     runPlace: 'browser',
   },
   {
-    technologyName: 'Node.js',
+    technologyName: 'nodejs',
     technologyIcon: <SiNodedotjs />,
     totalFork: 35,
     runPlace: 'server',
   },
   {
-    technologyName: 'Python',
+    technologyName: 'python',
     technologyIcon: <SiPython />,
     totalFork: 20,
     runPlace: 'server',
   },
   {
-    technologyName: 'Rust',
+    technologyName: 'rust',
     technologyIcon: <SiRust />,
     totalFork: 15,
     runPlace: 'browser',
