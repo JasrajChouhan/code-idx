@@ -4,6 +4,7 @@ import { Content, Footer, Header } from 'antd/es/layout/layout';
 import Sider from 'antd/es/layout/Sider';
 import { TerminalComponent } from '../components/molecules/terminal';
 import { EditorComponent } from '../components/molecules/editor/editor';
+import { Link } from 'react-router';
 
 // Styles for layout sections
 const headerStyle: React.CSSProperties = {
@@ -72,7 +73,10 @@ const Playground = () => {
 
   return (
     <Layout style={layoutStyle}>
-      <Header style={headerStyle}>Coding Playground</Header>
+      <Header style={headerStyle}>
+        <Link to={'/dashboard'}> go to dashboard </Link>
+        Coding Playground
+      </Header>
       {!screens.md && renderInlineButtons()}
       <Layout>
         {screens.md ? (
