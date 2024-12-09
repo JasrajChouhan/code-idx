@@ -26,6 +26,8 @@ export const TerminalComponent = () => {
     instance?.writeln('Welcome react-xtermjs!');
     instance?.writeln('This is a simple example using an addon.');
 
+    instance?.onData((data) => console.log(data));
+
     // Handle resize event
     window.addEventListener('resize', handleResize);
     return () => {
