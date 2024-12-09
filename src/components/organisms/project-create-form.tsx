@@ -1,10 +1,15 @@
 import { Button, Form, Input } from 'antd';
+import { useNavigate } from 'react-router';
 
 export const ProjectCreateForm = () => {
+  const navigate = useNavigate();
+  const handleProjectCreateForm = () => {
+    navigate('/playground');
+  };
   return (
     <>
       <h2 className="text-xl font-bold mb-4">Create a New Project</h2>
-      <Form layout="vertical" onFinish={() => alert('Form filled.')}>
+      <Form layout="vertical" onFinish={handleProjectCreateForm}>
         <Form.Item
           label="Project name"
           name="project-name"
