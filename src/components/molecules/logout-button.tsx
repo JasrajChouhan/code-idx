@@ -2,7 +2,7 @@ import { Button, notification } from 'antd';
 import React from 'react';
 
 import { useLogout } from '../../hooks/api/mutaion/useLogout';
-import { useAuthStore } from '../../store';
+import { useAuthStore } from '../../store/user.store';
 
 export const LogoutButton = () => {
   const [loading, setLoading] = React.useState<boolean>(false);

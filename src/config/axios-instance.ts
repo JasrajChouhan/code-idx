@@ -1,6 +1,6 @@
 import axios from 'axios';
+import { useAuthStore } from '../store/user.store';
 import { getEnv } from './getEnv';
-import { useAuthStore } from '../store';
 
 export const axiosInstance = axios.create({
   baseURL:

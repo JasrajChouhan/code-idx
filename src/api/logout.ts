@@ -1,6 +1,6 @@
 import ErrorBoundary from 'antd/es/alert/ErrorBoundary';
 import { axiosInstance } from '../config/axios-instance';
-import { useAuthStore } from '../store';
+import { useAuthStore } from '../store/user.store';
 
 export const logout = async () => {
   try {

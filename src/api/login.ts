@@ -1,8 +1,8 @@
-import { z } from 'zod';
 import ErrorBoundary from 'antd/es/alert/ErrorBoundary';
+import { z } from 'zod';
 import { axiosInstance } from '../config/axios-instance';
 import { LoginSchema } from '../schemas';
-import { useAuthStore } from '../store';
+import { useAuthStore } from '../store/user.store';
 
 export const login = async (formData: z.infer<typeof LoginSchema>) => {
   try {

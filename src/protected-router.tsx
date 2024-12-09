@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate } from 'react-router';
-import { useAuthStore } from './store/index';
+import { useAuthStore } from './store/user.store';
 
 export const ProtectedRoute: React.FC<{ children: JSX.Element }> = ({
   children,
