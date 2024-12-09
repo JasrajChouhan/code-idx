@@ -3,10 +3,12 @@ import { DefaultProject } from './default-projects';
 
 export interface SearchProjectLayoutProps {
   onProjectClick: () => void;
+  setTechnologyName: (name: string) => void;
 }
 
 export const SearchProjectLayout = ({
   onProjectClick,
+  setTechnologyName,
 }: SearchProjectLayoutProps) => {
   return (
     <>
@@ -23,7 +25,10 @@ export const SearchProjectLayout = ({
             technologyIcon={project.technologyIcon}
             technologyName={project.technologyName}
             runPlace={project.runPlace as 'browser' | 'server'}
-            onClick={onProjectClick}
+            onClick={() => {
+              setTechnologyName(project.technologyName);
+              onProjectClick();
+            }}
           />
         ))}
       </div>

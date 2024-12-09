@@ -1,0 +1,58 @@
+/* playground.css */
+
+/* Layout Styles */
+.layout {
+  height: 100vh;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  color: #fff;
+  height: 64px;
+  padding: 0 48px;
+  line-height: 64px;
+  background-color: #4096ff;
+}
+
+/* Sidebar */
+.sidebar {
+  text-align: center;
+  color: #fff;
+  background-color: #1677ff;
+  padding: 16px;
+  width: 20%;
+}
+
+/* Sidebar (mobile view) */
+.sidebar-mobile {
+  width: 100%;
+}
+
+/* Content */
+.content {
+  text-align: center;
+  min-height: 300px;
+  padding: 16px;
+  color: #000;
+  background-color: #f5f5f5;
+  border: 1px solid #d9d9d9;
+}
+
+/* Footer */
+.footer {
+  text-align: left;
+  padding: 16px;
+  background-color: #1e1e1e;
+  color: #fff;
+  height: 30vh;
+  overflow: auto;
+}
+
+/* Buttons container for mobile view */
+.inline-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px;
+}

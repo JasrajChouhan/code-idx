@@ -9,10 +9,14 @@ export const DashboardHeader = React.forwardRef<HTMLInputElement, {}>(
   (_, ref) => {
     const [isModalVisible, setIsModalVisible] = React.useState<boolean>(false);
     const [isCreatingProject, setIsCreatingProject] = useState<boolean>(false);
+    const [technologyName, setTechNologyName] = React.useState<
+      string | undefined
+    >(undefined);
 
     const closeModal = () => {
       setIsModalVisible(false);
       setIsCreatingProject(false);
+      setTechNologyName(undefined);
     };
     return (
       <>
@@ -46,9 +50,10 @@ export const DashboardHeader = React.forwardRef<HTMLInputElement, {}>(
             {!isCreatingProject ? (
               <SearchProjectLayout
                 onProjectClick={() => setIsCreatingProject(true)}
+                setTechnologyName={setTechNologyName}
               />
             ) : (
-              <ProjectCreateForm onBack={() => setIsCreatingProject(false)} />
+              <ProjectCreateForm projectTechStack={technologyName as string} />
             )}
           </ModelDialog>
         )}
