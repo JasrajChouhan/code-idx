@@ -3,8 +3,6 @@ import { useState } from 'react';
 import { ModelDialog } from '../molecules/model-dialog';
 import { ChangeEmail } from '../molecules/change-email';
 
-
-
 export const ChangeEmailLayout = () => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
