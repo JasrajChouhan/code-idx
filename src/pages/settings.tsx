@@ -1,3 +1,4 @@
+import { DeleteAccount } from '../components/molecules/delete-account';
 import { UploadAvatar } from '../components/molecules/upload-avatar';
 import { ChangeEmailLayout } from '../components/organisms/change-email-layout';
 import { ChangePasswordLayout } from '../components/organisms/change-password-layout';
@@ -8,6 +9,7 @@ function Settings() {
       <UploadAvatar />
       <ChangeEmailLayout />
       <ChangePasswordLayout />
+      <DeleteAccount />
     </div>
   );
 }
