@@ -9,6 +9,7 @@ import { ProtectedRoute } from '../protected-router';
 import Recent from '../pages/recent';
 import Settings from '../pages/settings';
 import Playground from '../pages/playground';
+import { Profile } from '../pages/profile';
 
 // Define the router
 export const router = createBrowserRouter([
@@ -30,6 +31,7 @@ export const router = createBrowserRouter([
         children: [
           { path: 'recent', element: <Recent /> },
           { path: 'settings', element: <Settings /> },
+          { path: 'profile', element: <Profile /> },
         ],
       },
       {
