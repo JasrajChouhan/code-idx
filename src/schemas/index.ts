@@ -24,3 +24,8 @@ export const createProjectSchema = z.object({
     .string()
     .max(300, 'Project descreption can not exceed by 300 characters.'),
 });
+
+export const ChangeEmailFormSchema = z.object({
+  oldEmail: z.string().email(),
+  newEmail: z.string().email(),
+});
