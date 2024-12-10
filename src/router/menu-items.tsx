@@ -1,6 +1,7 @@
 import {
   AppstoreOutlined,
   FileOutlined,
+  ProfileOutlined,
   SettingOutlined,
   UserOutlined,
 } from '@ant-design/icons';
@@ -12,6 +13,7 @@ export const menuItems = [
     icon: <SettingOutlined />,
     path: '/dashboard/settings',
   },
+  { label: 'Profile', icon: <ProfileOutlined />, path: '/dashboard/profile' },
   {
     label: 'Invite Members',
     icon: <UserOutlined />,
