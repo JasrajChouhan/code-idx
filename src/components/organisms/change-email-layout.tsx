@@ -1,7 +1,7 @@
 import { Button, Col, Layout, Row } from 'antd';
 import { useState } from 'react';
 import { ModelDialog } from '../molecules/model-dialog';
-import { ChangeEmail } from './change-email';
+import { ChangeEmail } from '../molecules/change-email';
 
 
 
