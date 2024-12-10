@@ -29,3 +29,9 @@ export const ChangeEmailFormSchema = z.object({
   oldEmail: z.string().email(),
   newEmail: z.string().email(),
 });
+
+export const ChangePasswordFormSchame = z.object({
+  oldPassword: z.string(),
+  newPassword: z.string(),
+  confirmPassword: z.string(),
+});
