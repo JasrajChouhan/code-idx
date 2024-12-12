@@ -1,10 +1,21 @@
-import { Avatar, Form, Input, Progress, Upload, message } from 'antd';
+import {
+  Avatar,
+  Form,
+  Input,
+  Progress,
+  Upload,
+  message,
+  notification,
+} from 'antd';
 import { useState } from 'react';
+import { useUploadAvatar } from '../../hooks/api/mutaion/useUploadAvatar';
 
 export const UploadAvatar = () => {
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [progress, setProgress] = useState<number>(0);
+
+  const { mutateAsync: uploadUserAvatar, isPending } = useUploadAvatar();
 
   const beforeUpload = (file: File) => {
     const isImage = file.type.startsWith('image/');
@@ -23,10 +34,11 @@ export const UploadAvatar = () => {
     return isImage && isSizeValid;
   };
 
+  // upload the image
   const handleChange = async (info: any) => {
     const { file } = info;
 
-    // Simulate upload progress // Todo
+    // Simulate upload progress
     setProgress(0);
     setTimeout(() => {
       setProgress(100);
@@ -35,9 +47,28 @@ export const UploadAvatar = () => {
       reader.onload = () => setPreview(reader.result as string);
       reader.readAsDataURL(file.originFileObj);
     }, 1000);
-  };
 
-  const w = progress / 100;
+    // Upload the image
+    try {
+      const formData = new FormData();
+      formData.append('avatar', file.originFileObj);
+      const response = await uploadUserAvatar(formData);
+      console.log(response);
+      notification.success({
+        message: 'Successfully uploaded image',
+        description: 'Your avatar has been updated.',
+      });
+    } catch (error) {
+      const errorData = error?.props?.response?.data;
+      console.log(error);
+
+      notification.error({
+        message: 'Avatar upload failed',
+        description:
+          errorData?.message || 'Something went wrong. Please try again.',
+      });
+    }
+  };
 
   return (
     <div className="flex flex-col justify-center items-center">
@@ -77,7 +108,12 @@ export const UploadAvatar = () => {
       </div>
 
       <div className="relative">
-        <Progress type="circle" percent={progress} size={40} />
+        <Progress
+          type="circle"
+          percent={progress}
+          size={40}
+          status={isPending ? 'active' : undefined}
+        />
       </div>
     </div>
   );
