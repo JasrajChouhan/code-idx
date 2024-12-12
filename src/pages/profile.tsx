@@ -41,7 +41,7 @@ export const Profile = () => {
               </span>
             </div>
           ) : (
-            <Link to={'/settings'}>
+            <Link to={'/dashboard/settings'}>
               <p className="text-sm text-red-600 underline mt-5">
                 Please upload an image for avatar
               </p>
