@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { axiosInstance } from '../../config/axios-instance';
 import { ChangePasswordFormSchame } from '../../schemas';
 
-export const changeEmailApi = async (
+export const changePasswordApi = async (
   data: z.infer<typeof ChangePasswordFormSchame>,
 ) => {
   try {
