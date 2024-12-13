@@ -37,7 +37,7 @@ export const ChangeEmailLayout = () => {
           onClose={() => setIsModalVisible(false)}
           isCrossIcon={true}
         >
-          <ChangeEmail />
+          <ChangeEmail onClose={() => setIsModalVisible(false)} />
         </ModelDialog>
       )}
     </>
