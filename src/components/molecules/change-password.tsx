@@ -1,12 +1,30 @@
+import { Button, Form, Input, notification } from 'antd';
 import { z } from 'zod';
-import { Button, Form, Input } from 'antd';
+import { useChangePassword } from '../../hooks/api/mutaion/useChangePassword';
 import { ChangePasswordFormSchame } from '../../schemas';
 
-export const ChangePassword = () => {
-  const handlePasswordUpdate = (
+export const ChangePassword = ({ onClose }: { onClose: () => void }) => {
+  const { mutateAsync: changeUserPassword, isPending } = useChangePassword();
+  const handlePasswordUpdate = async (
     data: z.infer<typeof ChangePasswordFormSchame>,
   ) => {
-    alert(data);
+    try {
+      await changeUserPassword(data);
+      notification.success({
+        message: 'Password Update Successful',
+        description: 'You have successfully updated your password!',
+      });
+      onClose();
+    } catch (error: any) {
+      const errorData = error?.props?.response?.data;
+      console.log(error);
+
+      notification.error({
+        message: 'Password Update Failed',
+        description:
+          errorData?.message || 'Something went wrong. Please try again.',
+      });
+    }
   };
   return (
     <Form layout="vertical" onFinish={handlePasswordUpdate}>
@@ -20,7 +38,19 @@ export const ChangePassword = () => {
       <Form.Item
         label="New Password ( Ex. johnDOE454!@$)"
         name="newPassword"
-        rules={[{ required: true, message: 'Please input your new password!' }]}
+        rules={[
+          { required: true, message: 'Please input your new password!' },
+          ({ getFieldValue }) => ({
+            validator(_, value) {
+              if (!value || getFieldValue('newPassword') === value) {
+                return Promise.resolve();
+              }
+              return Promise.reject(
+                new Error('The two passwords do not match!'),
+              );
+            },
+          }),
+        ]}
       >
         <Input.Password type="password" placeholder="Enter your new password" />
       </Form.Item>
@@ -37,7 +67,7 @@ export const ChangePassword = () => {
           placeholder="Please confirm your new password"
         />
       </Form.Item>
-      <Button type="primary" htmlType="submit" block>
+      <Button type="primary" htmlType="submit" block loading={isPending}>
         Sign In
       </Button>
     </Form>

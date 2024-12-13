@@ -37,7 +37,7 @@ export const ChangePasswordLayout = () => {
           onClose={() => setIsModalVisible(false)}
           isCrossIcon={true}
         >
-          <ChangePassword />
+          <ChangePassword onClose={() => setIsModalVisible(false)} />
         </ModelDialog>
       )}
     </>
