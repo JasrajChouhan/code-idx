@@ -1,7 +1,30 @@
 import { DeleteOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
+import { Button, notification } from 'antd';
+import { useDeleteAccount } from '../../hooks/api/mutaion/useDeleteAccount';
+import { useNavigate } from 'react-router';
 
 export const DeleteAccount = () => {
+  const navigate = useNavigate();
+  const { mutateAsync: deleteAccount, isPending } = useDeleteAccount();
+  const deleteAccountHandler = async () => {
+    try {
+      await deleteAccount();
+      notification.success({
+        message: 'Account Delete Successful',
+        description: 'You have successfully delete account!',
+      });
+      navigate('/');
+    } catch (error: any) {
+      const errorData = error?.props?.response?.data;
+      console.log(error);
+
+      notification.error({
+        message: 'Account Delete Failed',
+        description:
+          errorData?.message || 'Something went wrong. Please try again.',
+      });
+    }
+  };
   return (
     <div>
       <span>
@@ -9,7 +32,13 @@ export const DeleteAccount = () => {
           Danger Zone
         </h1>
       </span>
-      <Button color="danger" type="text" className="border-red-500">
+      <Button
+        color="danger"
+        type="text"
+        className="border-red-500"
+        onClick={deleteAccountHandler}
+        loading={isPending}
+      >
         <DeleteOutlined />
         <span color="red" className="text-red-600">
           {' '}
