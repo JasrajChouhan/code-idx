@@ -4,6 +4,7 @@ import TextArea from 'antd/es/input/TextArea';
 import { useNavigate } from 'react-router';
 
 import { useCreateProject } from '../../hooks/api/mutaion/useCreateProject';
+import { useProjectStore } from '../../store/project.store';
 
 export const ProjectCreateForm = ({
   projectTechStack,
@@ -13,17 +14,21 @@ export const ProjectCreateForm = ({
   const navigate = useNavigate();
   const { data, mutateAsync: startCreatingProject } = useCreateProject();
   const [loading, setLoading] = React.useState<boolean>(false);
+  // const {_id} = useProjectStore()
 
   const handleProjectCreateForm = async (projectData) => {
     setLoading(true);
     try {
-      await startCreatingProject({ projectTechStack, ...projectData });
+      const response = await startCreatingProject({
+        projectTechStack,
+        ...projectData,
+      });
       notification.success({
         message: 'Project Created Successful',
         description: 'You have successfully crating project!',
       });
-      console.log(data);
-      navigate('/playground');
+      const projectId = response?.data?._id;
+      navigate(`/playground/${projectId}`);
     } catch (error: any) {
       const errorData = error?.props?.response?.data;
       notification.error({

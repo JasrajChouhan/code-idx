@@ -10,6 +10,7 @@ export const environmentSchema = z.object({
   VITE_MESSAGING_SENDER_ID: z.string().readonly(),
   VITE_APP_ID: z.string().readonly(),
   VITE_MEASUREMENT_ID: z.string().readonly(),
+  VITE_PASSWORD_REGEX_PATTERN: z.string().readonly(),
 });
 
 export type Environment = z.infer<typeof environmentSchema>;

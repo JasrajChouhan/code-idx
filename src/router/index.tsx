@@ -35,7 +35,7 @@ export const router = createBrowserRouter([
         ],
       },
       {
-        path: '/playground',
+        path: '/playground/:projectId',
         element: (
           <ProtectedRoute>
             <Playground />
