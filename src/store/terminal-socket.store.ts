@@ -1,18 +1,17 @@
-import { Socket } from 'socket.io-client';
+import { Terminal } from '@xterm/xterm';
 import { create } from 'zustand';
+import { Socket } from 'socket.io-client';
 
-export interface TerminalSocketStoreTypes {
-  termianlSocket: null | Socket;
-  setTerminalSocket: (incomingSocket: Socket) => void;
+interface TerminalStore {
+  terminal: Terminal | null;
+  setTerminal: (terminal: Terminal | null) => void;
+  socket: Socket | null;
+  setSocket: (socket: Socket | null) => void;
 }
 
-export const useTerminalSocketStore = create<TerminalSocketStoreTypes>(
-  (set) => ({
-    termianlSocket: null,
-    setTerminalSocket: (incomingSocket: Socket) => {
-      set({
-        termianlSocket: incomingSocket,
-      });
-    },
-  }),
-);
+export const useTerminalStore = create<TerminalStore>((set) => ({
+  terminal: null,
+  setTerminal: (terminal) => set({ terminal }),
+  socket: null,
+  setSocket: (socket) => set({ socket }),
+}));
