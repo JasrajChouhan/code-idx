@@ -13,9 +13,8 @@ export const TerminalComponent = () => {
 
   const { setTerminal, setSocket } = useTerminalStore();
 
-  const {projectId} = useParams()
+  const { projectId } = useParams();
   console.log(projectId);
-  
 
   useEffect(() => {
     const term = new Terminal({
@@ -53,19 +52,20 @@ export const TerminalComponent = () => {
       `${import.meta.env.VITE_BACKEND_URL}/terminal`,
       {
         query: {
-          projectId
+          projectId,
         },
       },
     );
     setSocket(socketConnection);
 
-    socketConnection.on('shell-output', (data: string) => {
+    socketConnection.on('terminal:output', (data: string) => {
+      console.log(data);
       term.write(data);
     });
 
     // Handle terminal input and emit shell input to the server
     term.onData((data) => {
-      socketConnection.emit('shell-input', data);
+      socketConnection.emit('terminal:input', data);
     });
 
     // Clean up on unmount
