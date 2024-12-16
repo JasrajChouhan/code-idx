@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
 import { Button, Grid, Layout } from 'antd';
 import { Content, Footer, Header } from 'antd/es/layout/layout';
 import Sider from 'antd/es/layout/Sider';
-import { TerminalComponent } from '../components/molecules/terminal';
-import { EditorComponent } from '../components/molecules/editor/editor';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router';
+import { io } from 'socket.io-client';
+import { EditorComponent } from '../components/molecules/editor/editor';
+import { TerminalComponent } from '../components/molecules/terminal';
+import { getEnv } from '../config/getEnv';
+import { useEditorSocket } from '../store/editor-socket.store';
 
 // Styles for layout sections
 const headerStyle: React.CSSProperties = {
@@ -49,6 +52,18 @@ const Playground = () => {
   const { useBreakpoint } = Grid;
   const screens = useBreakpoint();
   const [view, setView] = useState<'sidebar' | 'code' | 'browser'>('code');
+
+  const { setEditorSocket, editorSocket } = useEditorSocket.getState();
+
+  useEffect(() => {
+    const editorSocketConnection = io(`${getEnv('VITE_BACKEND_URL')}/editor`, {
+      query: {
+        hello: 'ok',
+      },
+    });
+
+    setEditorSocket(editorSocketConnection);
+  });
 
   const renderInlineButtons = () => (
     <div
