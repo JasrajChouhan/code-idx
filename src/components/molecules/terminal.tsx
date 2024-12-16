@@ -5,12 +5,17 @@ import { useEffect, useRef } from 'react';
 import { io } from 'socket.io-client';
 
 import { useTerminalStore } from '../../store/terminal-socket.store';
+import { useParams } from 'react-router';
 
 export const TerminalComponent = () => {
   const terminalRef = useRef<HTMLDivElement | null>(null);
   const fitAddonRef = useRef<FitAddon | null>(null);
 
   const { setTerminal, setSocket } = useTerminalStore();
+
+  const {projectId} = useParams()
+  console.log(projectId);
+  
 
   useEffect(() => {
     const term = new Terminal({
@@ -48,7 +53,7 @@ export const TerminalComponent = () => {
       `${import.meta.env.VITE_BACKEND_URL}/terminal`,
       {
         query: {
-          projectId: 'der', // project id
+          projectId
         },
       },
     );
