@@ -49,6 +49,7 @@ export const EditorComponent = () => {
           defaultValue="// some comment"
           options={editoroptions}
           onMount={handleEditorTheme}
+          loading
         />
       )}
     </div>
