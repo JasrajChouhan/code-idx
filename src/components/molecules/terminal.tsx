@@ -1,39 +1,97 @@
 import { FitAddon } from '@xterm/addon-fit';
-import { useEffect } from 'react';
-import { useXTerm } from 'react-xtermjs';
+import { Terminal } from '@xterm/xterm';
+import '@xterm/xterm/css/xterm.css';
+import { useEffect, useRef } from 'react';
+import { io } from 'socket.io-client';
 
-const OPTIONS_TERM = {
-  useStyle: true,
-  screenKeys: true,
-  cursorBlink: true,
-  cols: 200,
-  theme: {
-    background: 'black',
-  },
-};
+import { useTerminalStore } from '../../store/terminal-socket.store';
 
 export const TerminalComponent = () => {
-  const { instance, ref } = useXTerm({ options: OPTIONS_TERM });
-  const fitAddon = new FitAddon();
+  const terminalRef = useRef<HTMLDivElement | null>(null);
+  const fitAddonRef = useRef<FitAddon | null>(null);
+
+  const { setTerminal, setSocket } = useTerminalStore();
 
   useEffect(() => {
-    // Load the fit addon
-    instance?.loadAddon(fitAddon);
+    const term = new Terminal({
+      cursorBlink: true,
+      theme: {
+        background: '#383838',
+        foreground: '#f8f8f3',
+        cursor: '#f8f8f3',
+        cursorAccent: '#282a37',
+        red: '#ff5544',
+        green: '#50fa7c',
+        yellow: '#f1fa8c',
+        cyan: '#8be9fd',
+      },
+      fontSize: 16,
+      fontFamily: 'Ubuntu Mono',
+      convertEol: true, // Convert CRLF to LF
+    });
 
-    const handleResize = () => fitAddon.fit();
+    // Open terminal in the container
+    if (terminalRef.current) {
+      term.open(terminalRef.current);
+    }
 
-    // Write custom message on your terminal
-    instance?.writeln('Welcome react-xtermjs!');
-    instance?.writeln('This is a simple example using an addon.');
+    // Attach FitAddon and fit the terminal
+    const fitAddon = new FitAddon();
+    fitAddonRef.current = fitAddon;
+    term.loadAddon(fitAddon);
+    fitAddon.fit();
 
-    instance?.onData((data) => console.log(data));
+    setTerminal(term);
 
-    // Handle resize event
+    // Initialize WebSocket connection
+    const socketConnection = io(
+      `${import.meta.env.VITE_BACKEND_URL}/terminal`,
+      {
+        query: {
+          projectId: 'der', // project id
+        },
+      },
+    );
+    setSocket(socketConnection);
+
+    socketConnection.on('shell-output', (data: string) => {
+      term.write(data);
+    });
+
+    // Handle terminal input and emit shell input to the server
+    term.onData((data) => {
+      socketConnection.emit('shell-input', data);
+    });
+
+    // Clean up on unmount
+    return () => {
+      term.dispose();
+      socketConnection.disconnect();
+      setTerminal(null);
+      setSocket(null);
+    };
+  }, [setTerminal, setSocket]);
+
+  useEffect(() => {
+    // Refitting terminal on window resize
+    const handleResize = () => {
+      fitAddonRef.current?.fit();
+    };
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [ref, instance]);
+  }, []);
 
-  return <div ref={ref} style={{ height: '100%', width: '100%' }} />;
+  return (
+    <div
+      ref={terminalRef}
+      style={{
+        height: '25vh',
+        overflow: 'auto',
+      }}
+      className="terminal"
+      id="terminal-container"
+    ></div>
+  );
 };
