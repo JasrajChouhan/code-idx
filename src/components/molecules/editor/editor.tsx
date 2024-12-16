@@ -44,7 +44,7 @@ export const EditorComponent = () => {
     <div>
       {theme && (
         <Editor
-          height="80vh"
+          height="60vh"
           defaultLanguage="javascript"
           defaultValue="// some comment"
           options={editoroptions}
