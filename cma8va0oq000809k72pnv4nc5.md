@@ -26,9 +26,9 @@ Let’s assume you’re a system administrator in your company, on the daily bas
 Currently you’ve ten server which run the same software and all the runs on only one cluster.  
 All things are going goods, but suddenly one day you notice one server is response time is off.  
 And you wanna find out which server can be produce this type of problem.  
-Remember all server are identical and no crashes happened in production.  
-  
-Can you find out the which server make problem for you?  
+Remember all server are identical and no crashes happened in production.
+
+Can you find out the which server make problem for you?
 
 ### Problem summary
 
@@ -45,8 +45,8 @@ Can you find out the which server make problem for you?
 
 ### Naive Approach
 
-We check response time of every server and try to find out which server have response off  
-  
+We check response time of every server and try to find out which server have response off
+
 Code (C++)
 
 ```cpp
@@ -81,13 +81,12 @@ int main() {
 See carefully we perform exact `n - 1` operations for `n` sized of array, or value of `i` vary from `1 → n - 1` in a single loop.  
 For space we don’t use any auxiliary space for this program it means `Space Complexity is O(1)` .
 
-But `time complexity is O(n-1) or O(n)` can we reduce this time complexity, please think about.  
-  
-  
-When we talking about a software is good or not according to worth of software, then we also discussed about how much and which type of resource used by a particular software.  
-  
-Like time , space and it can be depends upon system architectures.  
-  
+But `time complexity is O(n-1) or O(n)` can we reduce this time complexity, please think about.
+
+When we talking about a software is good or not according to worth of software, then we also discussed about how much and which type of resource used by a particular software.
+
+Like time , space and it can be depends upon system architectures.
+
 But for this problem we can slight scale on basic of time complexity, how let’s think
 
 ### Smarter Group-Based Approach
@@ -95,6 +94,8 @@ But for this problem we can slight scale on basic of time complexity, how let’
 In previous approach we target one element then compare to `maxTime` then moving next for next element of an array or vector. But what happened if we target a group of element of vector, because most of element have same value. Cool it’s awesome
 
 We divide whole array of response time in group of three and one element left out. Let’s put group name like `A,B and C` .
+
+![Generated image](https://sdmntprsouthcentralus.oaiusercontent.com/files/00000000-4f5c-61f7-b61c-9cac867f383c/raw?se=2025-05-04T00%3A54%3A06Z&sp=r&sv=2024-08-04&sr=b&scid=cbaf9b7c-8ffc-50f5-82eb-1158885464da&skoid=fa7966e7-f8ea-483c-919a-13acfd61d696&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-05-03T19%3A38%3A16Z&ske=2025-05-04T19%3A38%3A16Z&sks=b&skv=2024-08-04&sig=gJ2AZ8gVAToXn5NwgBHs3C%2B90SMaV67U%2B8c2pCkxRhI%3D align="left")
 
 ```plaintext
 groupA = {servers[0], servers[1], servers[2]}
