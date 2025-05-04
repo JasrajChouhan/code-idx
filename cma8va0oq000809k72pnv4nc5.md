@@ -107,7 +107,7 @@ then we compare all the group the pair of two if found out any diff then check n
 
 Code (C++)
 
-```c
+```cpp
 #include <iostream>
 #include <vector>
 #include <numeric>
